@@ -1,13 +1,15 @@
-// Typography
-$base-font-family: Lato;
-$heading-font-family: $base-font-family;
-
 // Font Sizes
 $base-font-size: 1em;
 
 // Line height
 $base-line-height: 1.5;
 $heading-line-height: 1.2;
+
+$xl-font-size: 2em;
+$l-font-size: 1.5em;
+$m-font-size: 1.125em;
+$s-font-size: 100%;
+$xs-font-size: 0.8em;
 
 // Other Sizes
 $base-border-radius: 3px;
@@ -23,12 +25,12 @@ $medium-gray: #999;
 $light-gray: #ddd;
 
 // Colors
-$base-background-color: #ECEEF4;
+$base-background-color: #F8F8FA;
 $secondary-background-color: #EAEAEA;
-$hover-color: $light-gray;
+$hover-color: #007989;
 $selected-color: #C9C9C9;
-$base-font-color: #727895;
-$action-color: $blue;
+$base-font-color: #277f43;
+$action-color: #00A4B9;
 
 // Border
 $base-border-color: $light-gray;

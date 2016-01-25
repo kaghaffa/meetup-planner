@@ -1,5 +1,13 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('HelveticaNeue.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+@font-face {
+  font-family: 'HelveticaNeue-Light';
+  src: url('HelveticaNeue-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
 
 // Imports
 @import "base/base";
@@ -9,7 +17,7 @@
 body {
   background-color: $base-background-color;
   color: $base-font-color;
-  font-family: $base-font-family;
+  font-family: HelveticaNeue-Light;
   line-height: $base-line-height;
   font-weight: 200;
 }

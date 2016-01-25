@@ -1,0 +1,26 @@
+.navbar {
+  min-height: 100px;
+  background-color: white;
+
+  .navbar-brand {
+    font-family: Lato;
+    font-size: $xl-font-size;
+    font-weight: bold;
+    color: $base-font-color;
+  }
+
+  .navbar-brand,
+  li {
+    height: 100px;
+    line-height: 100px;
+    padding-top: 0;
+  }
+
+  .header-actions {
+    float: right;
+
+    ul {
+      list-style-type: none;
+    }
+  }
+}

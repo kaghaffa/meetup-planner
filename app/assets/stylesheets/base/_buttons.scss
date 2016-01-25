@@ -1,0 +1,25 @@
+.btn {
+  &.btn-default {
+    color: white;
+    background-color: $action-color;
+    border: none;
+    border-radius: 0;
+
+    &:hover {
+      background-color: $hover-color;
+      filter: brightness(0.4);
+    }
+
+    &:active {
+      background-color: $action-color;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  i {
+    margin-right: 15px;
+  }
+}

@@ -11,10 +11,12 @@ define([
 
 	  render: function() {
 	    return (
-	    	<div className="container">
+	    	<div className="main">
 	    		<Header />
 					<div id="main-wrapper">
-						<RouteHandler { ...this.props } />
+						<div className="container">
+							<RouteHandler { ...this.props } />
+						</div>
 					</div>
 	    	</div>
 	    );
