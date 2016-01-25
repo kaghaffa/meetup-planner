@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  database: meetup-planner
+  pool: 5
+  timeout: 5000
+  username: ribbon
+
+test:
+  adapter: postgresql
+  database: meetup-planner-test
+  pool: 5
+  timeout: 5000
+  username: ribbon

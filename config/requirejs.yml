@@ -1,0 +1,29 @@
+paths:
+  'react'             : 'react/react-with-addons'
+  'react-router'      : 'react-router/build/global/ReactRouter.min'
+  'react-router-shim' : 'react-router-shim/react-router-shim'
+  'jquery'            : 'jquery/dist/jquery'
+  'lodash'            : 'lodash/lodash'
+  'flux'              : 'flux/dist/Flux'
+  'es6-promise'       : 'es6-promise/promise'
+  'event-emitter'     : 'eventemitter2/lib/eventemitter2'
+  'object-assign'     : 'object-assign/object-assign'
+  'async'             : 'requirejs-plugins/src/async'
+  'moment'            : 'moment/min/moment-with-locales.min'
+  'react-bootstrap'   : 'react-bootstrap/react-bootstrap'
+  'bootstrap'         : 'bootstrap/bootstrap'
+
+shim:
+  'react-router-shim':
+    exports: 'React'
+  'react-router':
+    deps: ['react-router-shim']
+    exports: 'ReactRouter'
+  'lodash':
+    exports: '_'
+  'object-assign':
+    exports: 'ObjectAssign'
+  'bootstrap':
+    deps: ['jquery']
+  'react-bootstrap':
+    deps: ['bootstrap']
