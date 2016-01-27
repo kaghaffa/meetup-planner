@@ -24,6 +24,7 @@ module App
 
     # API
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/api/*)
 
     config.action_dispatch.default_headers = {
         'Access-Control-Allow-Origin' => '*',
