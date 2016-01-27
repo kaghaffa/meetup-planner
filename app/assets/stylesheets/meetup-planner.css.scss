@@ -4,10 +4,6 @@
   font-family: 'HelveticaNeue';
   src: url('HelveticaNeue.ttf')  format('truetype'), /* Safari, Android, iOS */
 }
-@font-face {
-  font-family: 'HelveticaNeue-Light';
-  src: url('HelveticaNeue-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
-}
 
 // Imports
 @import "base/base";
@@ -17,7 +13,7 @@
 body {
   background-color: $base-background-color;
   color: $base-font-color;
-  font-family: HelveticaNeue-Light;
+  font-family: HelveticaNeue;
   line-height: $base-line-height;
   font-weight: 200;
 }
