@@ -42,5 +42,10 @@ module App
 
     # Required for Heroku
     config.assets.initialize_on_precompile = false
+
+    # For devise
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
 end

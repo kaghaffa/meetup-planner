@@ -12,4 +12,9 @@ App::Application.routes.draw do
 
 
   get '/create' => 'app#show'
+
+  # Devise
+  scope :auth do
+    get 'is_signed_in', to: 'auth#is_signed_in?'
+  end
 end
