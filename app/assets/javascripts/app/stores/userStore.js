@@ -7,7 +7,10 @@ define([
 
   'use strict';
 
-  var _user = {};
+  var _user = {
+    signed_in: false,
+    user: {}
+  };
 
   function _setUser(user) {
     _user = user;
@@ -29,7 +32,7 @@ define([
     },
 
     get: function() {
-      return _user;
+      return _user.user;
     },
 
     isSignedIn: function() {

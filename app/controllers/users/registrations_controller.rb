@@ -1,5 +1,9 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
+  before_filter :configure_permitted_parameters
 
-  layout 'layouts/static_application'
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up).push(:full_name)
+  end
 end
