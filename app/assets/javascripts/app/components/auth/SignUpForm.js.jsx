@@ -10,59 +10,96 @@ define([
       return {
         email: '',
         password: '',
-        password_confirmation: '',
-        name: ''
+        passwordConfirmation: '',
+        fullName: '',
+        nickname: ''
       };
     },
 
-    _handleInputChange: function(e) {
-      // Get a deep clone of the component's state before the input change.
+    _handleInputChange: function(field, e) {
       var nextState = _.cloneDeep(this.state);
-
-      //Update the state of the component
-      nextState[e.target.name] = e.target.value;
-
-      // Update the component's state with the new state
+      nextState[field] = e.target.value;
       this.setState(nextState);
     },
 
-    _handleRegistrationClick: function(e) {
+    _onSignUpFormSubmit: function(e) {
       var signUpData = {
         email: this.state.email,
         password: this.state.password,
-        password_confirmation: this.state.password_confirmation,
-        full_name: this.state.name
+        password_confirmation: this.state.passwordConfirmation,
+        full_name: this.state.fullName,
+        nickname: this.state.nickname
       };
       UserActions.signUp(signUpData);
     },
 
-    render:function(){
+    render: function() {
       return (
-        <form>
-          <input type='text'
-            name='name'
-            placeholder='name'
-            value={ this.state.name }
-            onChange={ this._handleInputChange } />
+        <form onSubmit={ this._onSignUpFormSubmit }>
+          <div className="row">
+            <div className="col-md-6 form-group">
+              <label htmlFor="fullName">Full name</label>
+              <input
+                className="form-control"
+                type='text'
+                id='fullName'
+                placeholder='Full name'
+                value={ this.state.fullName }
+                onChange={ this._handleInputChange.bind(this, "fullName") } />
+              </div>
+            <div className="col-md-6 form-group">
+              <label htmlFor="nickname">What should we call you?</label>
+              <input
+                className="form-control"
+                type='text'
+                id='nickname'
+                placeholder='Nickname'
+                value={ this.state.nickname }
+                onChange={ this._handleInputChange.bind(this, "nickname") } />
+            </div>
+          </div>
 
-          <input type='email'
-            name='email'
-            placeholder='email'
-            value={ this.state.email} s
-            onChange={ this._handleInputChange } />
 
-          <input type='password'
-            name='password'
-            placeholder='password'
-            value={ this.state.password }
-            onChange={ this._handleInputChange } />
+          <div className="row">
+            <div className="col-md-6 form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                className="form-control"
+                type='email'
+                id='email'
+                placeholder='email'
+                value={ this.state.email}
+                onChange={ this._handleInputChange.bind(this, "email") } />
+            </div>
+          </div>
 
-          <input type='password'
-            name='password_confirmation'
-            placeholder='re-type password'
-            value={ this.state.password_confirmation }
-            onChange={ this._handleInputChange } />
-          <input onClick={ this._handleRegistrationClick } defaultValue="sign up"/>
+          <div className="row">
+            <div className="col-md-6 form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                className="form-control"
+                type='password'
+                id='password'
+                placeholder='passwordConfirmation'
+                value={ this.state.password }
+                onChange={ this._handleInputChange.bind(this, "password") } />
+              </div>
+
+            <div className="col-md-6 form-group">
+              <label htmlFor="passwordConfirmation">Password Confirmation</label>
+              <input
+                className="form-control"
+                type='password'
+                id='passwordConfirmation'
+                placeholder='re-type password'
+                value={ this.state.passwordConfirmation }
+                onChange={ this._handleInputChange.bind(this, "passwordConfirmation") } />
+              </div>
+            </div>
+
+            <button type="submit" className="btn btn-success pull-right">
+              Sign Up
+            </button>
         </form>
       );
     }

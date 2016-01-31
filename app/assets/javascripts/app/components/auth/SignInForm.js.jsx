@@ -13,14 +13,9 @@ define([
       };
     },
 
-    _handleInputChange: function(e) {
-      // Get a deep clone of the component's state before the input change.
+    _handleInputChange: function(field, e) {
       var nextState = _.cloneDeep(this.state);
-
-      //Update the state of the component
-      nextState[e.target.name] = e.target.value;
-
-      // Update the component's state with the new state
+      nextState[field] = e.target.value;
       this.setState(nextState);
     },
 
@@ -35,19 +30,35 @@ define([
 
     render: function() {
       return (
-        <form>
-          <legend>Sign In</legend>
-          <input type='email'
-            name='email'
-            placeholder='email'
-            value={ this.state.email }
-            onChange={ this._handleInputChange } />
-          <input type='password'
-            name='password'
-            placeholder='password'
-            value={ this.state.password }
-            onChange={ this._handleInputChange } />
-          <input type='submit' onClick={ this._handleSignInClick } defaultValue='login' />
+        <form onSubmit={ this._handleSignInClick }>
+          <div className="row">
+            <div className="col-md-6 form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                className="form-control"
+                type='email'
+                id='email'
+                placeholder='email'
+                value={ this.state.email }
+                onChange={ this._handleInputChange.bind(this, "email") } />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-6 form-group">
+              <label htmlFor="password">Password</label>
+                <input
+                  className="form-control"
+                  type='password'
+                  id='password'
+                  placeholder='password'
+                  value={ this.state.password }
+                  onChange={ this._handleInputChange.bind(this, "password") } />
+            </div>
+          </div>
+          <button type='submit' className="btn btn-success pull-right" >
+            Sign In
+          </button>
         </form>
       );
     }

@@ -14,6 +14,7 @@ require([
   	<Route name="app" path="/" handler={ AppWrapper }>
       <Route name="create" path="create" handler={ CreateEventWrapper } />
     </Route>
+
   );
 
   ReactRouter.run(routes, HistoryLocation, function(Handler, state) {

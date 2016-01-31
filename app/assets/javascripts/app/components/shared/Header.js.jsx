@@ -1,15 +1,24 @@
 define([
   'react',
   'react-router',
+  'app/components/auth/SignInButton',
+  'app/components/auth/SignOutButton',
   'bootstrap'
-], function(React, ReactRouter) {
+], function(React, ReactRouter, SignInButton, SignOutButton) {
   'use strict';
 
   var RouteHandler = ReactRouter.RouteHandler;
 
   return React.createClass({
 
+    propTypes: {
+      isSignedIn: React.PropTypes.bool.isRequired,
+      user: React.PropTypes.object
+    },
+
     render: function() {
+      var authButton = this.props.isSignedIn ? <SignOutButton /> : <SignInButton />
+
       return (
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container-fluid">
@@ -23,6 +32,7 @@ define([
                     <i className="fa fa-lg fa-plus"></i>CREATE EVENT
                   </button>
                 </li>
+                <li>{ authButton }</li>
               </ul>
             </div>
           </div>

@@ -1,14 +1,11 @@
-define([
+  define([
   'react',
   'react-router',
   'app/components/shared/Header',
-  'app/components/auth/SignInForm',
-  'app/components/auth/SignOutButton',
-  'app/components/auth/SignUpForm',
+  'app/components/auth/AuthWrapper',
   'app/actions/userActions',
-  'app/stores/userStore',
-], function(React, ReactRouter, Header, SignInForm, SignOutButton, SignUpForm,
-    UserActions, UserStore) {
+  'app/stores/userStore'
+], function(React, ReactRouter, Header, AuthWrapper, UserActions, UserStore) {
   'use strict';
 
   var RouteHandler = ReactRouter.RouteHandler;
@@ -37,7 +34,6 @@ define([
     },
 
     render: function() {
-      var str = UserStore.isSignedIn() ? "SIGNED IN" : "SIGNED OUT"
       var content;
 
       if (UserStore.isSignedIn()) {
@@ -49,19 +45,16 @@ define([
           />
         );
       } else {
-        content = "SIGN IN RIGHT NOW";
+        content = <AuthWrapper />;
       }
 
       return (
         <div className="main">
-          <Header />
-          {str}
-          {this.state.user}
-          <SignInForm />
-          <SignOutButton />
-          <SignUpForm />
+          <Header isSignedIn={ UserStore.isSignedIn() } user={ this.state.user } />
           <div id="main-wrapper">
-            <div className="container">{ content }</div>
+            <div className="container">
+              { content }
+            </div>
           </div>
         </div>
       );

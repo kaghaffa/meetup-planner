@@ -6,17 +6,17 @@ define([
 
   return React.createClass({
 
-    _signOut: function(){
+    _signOut: function() {
       UserActions.signOut();
     },
 
-    render:function(){
+    render: function() {
       return (
-        <a href="#" className="btn btn-default" onClick={ this._signOut }>
+        <button className="btn btn-default" onClick={ this._signOut }>
           Sign out
-        </a>
+        </button>
       )
-    },
+    }
 
   });
 });
