@@ -3,18 +3,20 @@
   'react-router',
   'app/components/shared/Header',
   'app/components/auth/AuthWrapper',
+  'app/components/shared/Loading',
   'app/actions/userActions',
   'app/stores/userStore'
-], function(React, ReactRouter, Header, AuthWrapper, UserActions, UserStore) {
+], function(React, ReactRouter, Header, AuthWrapper, Loading, UserActions, UserStore) {
   'use strict';
 
   var RouteHandler = ReactRouter.RouteHandler;
 
   return React.createClass({
 
-    getInitialState() {
+    getInitialState: function() {
       return {
-        user: UserStore.get()
+        user: UserStore.get(),
+        loading: true
       };
     },
 
@@ -29,7 +31,8 @@
 
     _onUserChange: function() {
       this.setState({
-        user: UserStore.get()
+        user: UserStore.get(),
+        loading: false
       });
     },
 
@@ -46,6 +49,10 @@
         );
       } else {
         content = <AuthWrapper />;
+      }
+
+      if (this.state.loading) {
+        content = <Loading />
       }
 
       return (

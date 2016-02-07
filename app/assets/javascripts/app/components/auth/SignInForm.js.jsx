@@ -6,6 +6,8 @@ define([
 
   return React.createClass({
 
+    mixins: [ReactRouter.Navigation],
+
     getInitialState: function() {
       return {
         email: '',
@@ -26,11 +28,15 @@ define([
       };
 
       UserActions.signIn(signInData);
+      this.transitionTo('/create')
     },
 
     render: function() {
       return (
         <form onSubmit={ this._handleSignInClick }>
+          <div className="subtitle">
+            <h4>Sign in</h4>
+          </div>
           <div className="row">
             <div className="col-md-6 form-group">
               <label htmlFor="email">Email</label>

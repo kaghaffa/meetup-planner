@@ -13,6 +13,7 @@ paths:
   'react-bootstrap'   : 'react-bootstrap/react-bootstrap'
   'bootstrap'         : 'bootstrap/bootstrap'
 
+
 shim:
   'react-router-shim':
     exports: 'React'

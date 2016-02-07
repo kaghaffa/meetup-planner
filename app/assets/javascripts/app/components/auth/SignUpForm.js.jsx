@@ -36,6 +36,9 @@ define([
     render: function() {
       return (
         <form onSubmit={ this._onSignUpFormSubmit }>
+          <div className="subtitle">
+            <h4>Create an account</h4>
+          </div>
           <div className="row">
             <div className="col-md-6 form-group">
               <label htmlFor="fullName">Full name</label>
@@ -43,7 +46,7 @@ define([
                 className="form-control"
                 type='text'
                 id='fullName'
-                placeholder='Full name'
+                placeholder='Joseph Smith'
                 value={ this.state.fullName }
                 onChange={ this._handleInputChange.bind(this, "fullName") } />
               </div>
@@ -53,7 +56,7 @@ define([
                 className="form-control"
                 type='text'
                 id='nickname'
-                placeholder='Nickname'
+                placeholder='Joe'
                 value={ this.state.nickname }
                 onChange={ this._handleInputChange.bind(this, "nickname") } />
             </div>
@@ -67,7 +70,7 @@ define([
                 className="form-control"
                 type='email'
                 id='email'
-                placeholder='email'
+                placeholder='Email'
                 value={ this.state.email}
                 onChange={ this._handleInputChange.bind(this, "email") } />
             </div>
@@ -80,7 +83,7 @@ define([
                 className="form-control"
                 type='password'
                 id='password'
-                placeholder='passwordConfirmation'
+                placeholder='Password'
                 value={ this.state.password }
                 onChange={ this._handleInputChange.bind(this, "password") } />
               </div>
@@ -91,7 +94,7 @@ define([
                 className="form-control"
                 type='password'
                 id='passwordConfirmation'
-                placeholder='re-type password'
+                placeholder='Confirm password'
                 value={ this.state.passwordConfirmation }
                 onChange={ this._handleInputChange.bind(this, "passwordConfirmation") } />
               </div>
