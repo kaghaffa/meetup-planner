@@ -11,6 +11,6 @@
     "eventemitter2": "0.4.14",
     "requirejs-plugins": "1.0.3",
     "react-bootstrap": "0.26.4",
-    "spinkit": "1.2.5"
+    "react-widgets": "3.1.2"
   }
 }

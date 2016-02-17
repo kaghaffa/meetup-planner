@@ -11,26 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126020236) do
+ActiveRecord::Schema.define(version: 20160212163835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "event_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", force: true do |t|
     t.string   "name",          null: false
+    t.string   "token",         null: false
     t.integer  "event_type_id"
     t.integer  "user_id"
     t.string   "host"
     t.string   "guest_list"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "starts"
+    t.datetime "ends"
     t.string   "location"
     t.string   "latitude"
     t.string   "longitude"
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "events", ["token"], name: "index_events_on_token", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

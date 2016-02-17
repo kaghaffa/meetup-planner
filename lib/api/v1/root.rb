@@ -43,5 +43,6 @@ module API::V1
 
     ##
     # Resources
+    mount API::V1::Resources::Events
   end
 end

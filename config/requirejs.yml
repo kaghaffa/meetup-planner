@@ -27,4 +27,3 @@ shim:
   'bootstrap':
     deps: ['jquery']
   'react-bootstrap':
-    deps: ['bootstrap']

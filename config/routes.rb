@@ -10,8 +10,8 @@ App::Application.routes.draw do
     passwords: 'users/passwords'
   }
 
-
   get '/create' => 'app#show'
+  get '/events' => 'app#show'
 
   # Devise
   scope :auth do

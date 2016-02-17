@@ -28,7 +28,7 @@ define([
       };
 
       UserActions.signIn(signInData);
-      this.transitionTo('/create')
+      this.transitionTo('/')
     },
 
     render: function() {

@@ -11,9 +11,15 @@ define([
 
   return React.createClass({
 
+    mixins: [ReactRouter.Navigation],
+
     propTypes: {
       isSignedIn: React.PropTypes.bool.isRequired,
       user: React.PropTypes.object
+    },
+
+    _onCreateBtnClick: function() {
+      this.transitionTo('/create')
     },
 
     render: function() {
@@ -23,12 +29,14 @@ define([
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">Meetup Planner</a>
+              <a className="navbar-brand" href="/">Meetup Planner</a>
             </div>
             <div className="collapse navbar-collapse header-actions">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <button className="btn btn-lg btn-default">
+                  <button
+                    className="btn btn-lg btn-default"
+                    onClick={ this._onCreateBtnClick }>
                     <i className="fa fa-lg fa-plus"></i>CREATE EVENT
                   </button>
                 </li>
