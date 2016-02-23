@@ -1,3 +1,7 @@
+/*
+ * http://jsfiddle.net/limeric29/NtXYK/
+ */
+
 define([
 ], function() {
   'use strict';
