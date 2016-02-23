@@ -5,8 +5,8 @@ require([
   'app/components/AppWrapper',
   'app/components/create-event/CreateEventWrapper',
   'app/components/events/EventsWrapper'
-], function(React, ReactRouterShim, ReactRouter, AppWrapper, CreateEventWrapper,
-  EventsWrapper) {
+], function(React, ReactRouterShim, ReactRouter, AppWrapper,
+  CreateEventWrapper, EventsWrapper) {
 	'use strict';
 
   var Route           = ReactRouter.Route;

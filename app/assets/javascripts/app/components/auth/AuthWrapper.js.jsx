@@ -26,7 +26,7 @@ define([
       var content = this.state.showSignUpForm ? <SignUpForm /> : <SignInForm />
 
       return (
-        <div className="well well-lg col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 auth-wrapper">
+        <div className="well well-lg col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 auth-wrapper">
           { content }
           <AuthFooter
             showSignUpForm={ this.state.showSignUpForm }

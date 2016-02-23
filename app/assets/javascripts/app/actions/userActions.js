@@ -26,7 +26,7 @@ define([
       });
     },
 
-    signIn: function(data) {
+    signIn: function(data, callback) {
       $.ajax({
         method: "POST",
         url: "/users/sign_in.json",
@@ -34,9 +34,16 @@ define([
           user: data,
           authenticity_token: UserUtils.getMetaContent("csrf-token")
         }
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+
+        // Failure
+        Dispatcher.handleServerAction({
+          type: UserConstants.SIGN_IN_USER_FAIL,
+          msg: textStatus + " " + errorThrown
+        });
       }).done(function(data){
         location.reload();
-      });
+      }).always(callback);
     },
 
     signOut: function() {
