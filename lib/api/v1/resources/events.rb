@@ -30,9 +30,8 @@ module API::V1::Resources
         use :event
       end
       post do
-        event = Event.create!(params.merge(
-          user_id: current_user.id,
-          host: current_user.full_name
+        event = Event.create!(declared(params).merge(
+          user_id: current_user.id
         ))
 
         present event, with: API::V1::Entities::Event

@@ -25,13 +25,30 @@ form {
   label {
     padding-left: 10px;
     font-size: 12px;
-    // text-transform: uppercase;
   }
 
   .form-control {
     box-shadow: none;
     border-radius: 2px;
     border-color: #ECECEC;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  select {
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+    background-repeat:no-repeat;
+    background-position: right 4px top 12px;
+    background-size: 10px 10px;
+    padding: 6px 12px;
+    outline: 0;
+    width: 100%;
+    border-radius: 3px;
+    border-color: #ECECEC;
+    -webkit-border-radius: 3px;
+    -webkit-appearance: none;
   }
 }
 

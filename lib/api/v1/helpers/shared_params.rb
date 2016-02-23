@@ -7,9 +7,11 @@ module API::V1::Helpers
       requires :location,    type: String
       requires :latitude,    type: String
       requires :longitude,   type: String
-      optional :starts,      type: DateTime
-      optional :ends,        type: DateTime
+      optional :host,        type: String
+      optional :starts,      type: String
+      optional :ends,        type: String
       optional :description, type: String
+      optional :guest_list,  type: String
     end # :event
   end # SharedParams
 end

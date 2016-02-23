@@ -6,7 +6,7 @@
     border-radius: 0;
 
     &:hover {
-      background-color: $hover-color;
+      opacity: 0.8;
       filter: brightness(0.4);
     }
 

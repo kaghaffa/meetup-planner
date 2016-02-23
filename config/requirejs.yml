@@ -13,6 +13,7 @@ paths:
   'react-bootstrap'   : 'react-bootstrap/react-bootstrap'
   'bootstrap'         : 'bootstrap/bootstrap'
   'datepicker'        : 'datepicker/datepicker.min'
+  'pikaday'           : 'pikaday/pikaday'
 shim:
   'react-router-shim':
     exports: 'React'

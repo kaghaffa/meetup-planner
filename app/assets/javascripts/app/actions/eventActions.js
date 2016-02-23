@@ -23,7 +23,26 @@ define([
           msg: textStatus + " " + errorThrown
         });
       });
-    }
+    },
+
+    // POST api/v1/events
+    create: function(event) {
+      $.post("/api/v1/events", event, function(res) {
+        // Success
+        Dispatcher.handleServerAction({
+          type: EventConstants.CREATE_EVENT_SUCCESS,
+          response: res
+        });
+
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+
+        // Failure
+        Dispatcher.handleServerAction({
+          type: EventConstants.CREATE_EVENT_FAIL,
+          msg: textStatus + " " + errorThrown
+        });
+      });
+    },
   }
 
 });
