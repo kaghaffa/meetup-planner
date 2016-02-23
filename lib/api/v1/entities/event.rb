@@ -7,5 +7,6 @@ module API::V1::Entities
     expose :ends
     expose :location
     expose :description
+    expose :event_type
   end
 end

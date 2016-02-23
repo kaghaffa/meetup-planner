@@ -74,6 +74,8 @@ define([
         description: this.state.description,
         guest_list: this.state.guestlist
       });
+
+      EventActions.get();
       this.transitionTo('/');
     },
 

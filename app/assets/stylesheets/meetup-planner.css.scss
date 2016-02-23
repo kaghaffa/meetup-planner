@@ -65,3 +65,30 @@ form {
   background-color: white;
   box-shadow: 5px, 1px, #000;
 }
+
+.event-list-item {
+  transition: box-shadow .2s cubic-bezier(0,.2,.4,1);
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,.15)
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .dates, .location {
+    color: $medium-gray;
+    float: right;
+  }
+
+  .host {
+    font-size: 16px;
+  }
+
+  .description {
+    color: $medium-gray;
+  }
+}

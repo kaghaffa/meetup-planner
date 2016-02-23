@@ -12,6 +12,7 @@ module API::V1::Helpers
       optional :ends,        type: String
       optional :description, type: String
       optional :guest_list,  type: String
+      optional :event_type,  type: String
     end # :event
   end # SharedParams
 end
