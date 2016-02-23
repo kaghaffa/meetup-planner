@@ -1,5 +1,5 @@
 // Fonts
-// @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
 @font-face {
   font-family: 'HelveticaNeue';
   src: url('HelveticaNeue.ttf')  format('truetype'), /* Safari, Android, iOS */
@@ -10,6 +10,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "spinkit";
+@import "bootstrap-datetimepicker.min";
+@import "daypicker";
 
 body {
   background-color: $base-background-color;
@@ -22,13 +24,14 @@ body {
 form {
   label {
     padding-left: 10px;
-    font-size: 11px;
+    font-size: 12px;
     // text-transform: uppercase;
   }
 
   .form-control {
     box-shadow: none;
     border-radius: 2px;
+    border-color: #ECECEC;
   }
 }
 
@@ -39,4 +42,9 @@ form {
   text-transform: uppercase;
   text-align: center;
   margin: 0 auto 25px auto;
+}
+
+.well {
+  background-color: white;
+  box-shadow: 5px, 1px, #000;
 }

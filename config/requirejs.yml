@@ -12,8 +12,7 @@ paths:
   'moment'            : 'moment/min/moment-with-locales.min'
   'react-bootstrap'   : 'react-bootstrap/react-bootstrap'
   'bootstrap'         : 'bootstrap/bootstrap'
-
-
+  'datepicker'        : 'datepicker/datepicker.min'
 shim:
   'react-router-shim':
     exports: 'React'
@@ -26,4 +25,3 @@ shim:
     exports: 'ObjectAssign'
   'bootstrap':
     deps: ['jquery']
-  'react-bootstrap':

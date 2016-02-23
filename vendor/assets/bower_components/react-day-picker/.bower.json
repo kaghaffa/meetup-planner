@@ -1,0 +1,54 @@
+{
+  "name": "react-day-picker",
+  "description": "Flexible date picker component for React",
+  "main": "dist/DayPicker.js",
+  "authors": [
+    "Giampaolo Bellavite <io@gpbl.org>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "react-component",
+    "component",
+    "calendar",
+    "date-picker",
+    "datepicker",
+    "date",
+    "picker",
+    "moment",
+    "momentjs"
+  ],
+  "homepage": "https://github.com/gpbl/react-day-picker",
+  "moduleType": [
+    "globals"
+  ],
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "*.js",
+    "book.json",
+    "package.json",
+    "docs",
+    "examples",
+    "lib",
+    "src",
+    "test",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.x || ~0.14.x"
+  },
+  "version": "1.3.0",
+  "_release": "1.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.3.0",
+    "commit": "b1730dd9582cd81362946d363033167cd6bc922d"
+  },
+  "_source": "git://github.com/gpbl/react-day-picker.git",
+  "_target": "*",
+  "_originalSource": "react-day-picker"
+}
