@@ -16,6 +16,10 @@ define([
       };
     },
 
+    componentDidMount: function() {
+      this.refs.email.getDOMNode().focus();
+    },
+
     _handleInputChange: function(field, e) {
       var nextState = _.cloneDeep(this.state);
       nextState[field] = e.target.value;
@@ -35,8 +39,6 @@ define([
           _this.setState({
             errorText: data.responseJSON.error
           });
-        } else {
-          this.transitionTo('/')
         }
       });
     },
@@ -62,6 +64,7 @@ define([
                 className="form-control"
                 type='email'
                 id='email'
+                ref='email'
                 placeholder='john@smith.com'
                 value={ this.state.email }
                 onChange={ this._handleInputChange.bind(this, "email") } />

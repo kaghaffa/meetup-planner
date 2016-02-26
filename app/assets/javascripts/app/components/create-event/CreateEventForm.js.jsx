@@ -35,6 +35,7 @@ define([
 
     componentDidMount: function() {
       this._setUpGoogleMapsAutocomplete();
+      this.refs.name.getDOMNode().focus();
     },
 
     _setUpGoogleMapsAutocomplete: function() {
@@ -98,6 +99,7 @@ define([
                   className="form-control"
                   type='text'
                   id='name'
+                  ref='name'
                   placeholder='Give it a short, unique name'
                   value={ this.state.name }
                   onChange={ this._handleInputChange.bind(this, "name") }

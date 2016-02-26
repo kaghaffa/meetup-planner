@@ -16,6 +16,10 @@ define([
       };
     },
 
+    componentDidMount: function() {
+      this.refs.fullName.getDOMNode().focus();
+    },
+
     _handleInputChange: function(field, e) {
       var nextState = _.cloneDeep(this.state);
       nextState[field] = e.target.value;
@@ -46,6 +50,7 @@ define([
                 className="form-control"
                 type='text'
                 id='fullName'
+                ref="fullName"
                 placeholder='Joseph Smith'
                 autoComplete="name"
                 value={ this.state.fullName }
