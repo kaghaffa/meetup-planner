@@ -46,11 +46,17 @@ define([
       }
 
       return (
-        <nav className="navbar navbar-default navbar-static-top">
+        <nav className="navbar navbar-default navbar-static-top" role="navigation">
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="/">Meetup Planner</a>
+              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".header-actions">
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
             </div>
+
             <div className="collapse navbar-collapse header-actions">
               { content }
             </div>
