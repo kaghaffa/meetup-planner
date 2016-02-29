@@ -26,7 +26,7 @@ define([
       this.setState(nextState);
     },
 
-    _handleSignInClick: function(e) {
+    _handleSignInClick: function() {
       var _this = this;
       var signInData = {
         email: this.state.email,
@@ -34,7 +34,6 @@ define([
       };
 
       UserActions.signIn(signInData, function(data) {
-        console.log(data)
         if (data.status > 299) {
           _this.setState({
             errorText: data.responseJSON.error

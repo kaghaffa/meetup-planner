@@ -12,7 +12,8 @@ define([
         password: '',
         passwordConfirmation: '',
         fullName: '',
-        nickname: ''
+        nickname: '',
+        errors: []
       };
     },
 
@@ -27,6 +28,9 @@ define([
     },
 
     _onSignUpFormSubmit: function(e) {
+      this._validate_form();
+      if (this.state.errors.length > 0) return;
+
       var signUpData = {
         email: this.state.email,
         password: this.state.password,
@@ -34,15 +38,55 @@ define([
         full_name: this.state.fullName,
         nickname: this.state.nickname
       };
-      UserActions.signUp(signUpData);
+
+      this._validate_form();
+      if (this.state.errors.length == 0) {
+        UserActions.signUp(signUpData);
+      }
+    },
+
+    _validate_form: function() {
+      var errors = [];
+
+      if (this.state.password.length > 0) {
+        if (this.state.password.length < 8) {
+          errors.push("Password must be at least 8 characters");
+        }
+
+        if (!this.state.password.match(/(?=.*\d)./) && !this.state.password.match(/(?=.*[A-Z])./)) {
+          errors.push("Password must have at least one number or uppercase letter");
+        }
+
+        if (this.state.passwordConfirmation.length > 0) {
+          if (this.state.password !== this.state.passwordConfirmation) {
+            errors.push("Passwords don't match");
+          }
+        }
+      }
+
+      this.setState({errors: errors})
     },
 
     render: function() {
+      var errorAlert;
+      if (!_.isEmpty(this.state.errors)) {
+        var errorList = this.state.errors.map(function(error) {
+          return <li>{ error }</li>;
+        })
+
+        errorAlert = (
+          <div className="alert alert-danger" role="alert">
+            <ul>{ errorList }</ul>
+          </div>
+        );
+      }
+
       return (
         <form className="" onSubmit={ this._onSignUpFormSubmit }>
           <div className="subtitle">
             <h4>Create an account</h4>
           </div>
+          { errorAlert }
           <div className="row">
             <div className="col-md-6 col-sm-6 form-group">
               <label htmlFor="fullName">Full name *</label>
@@ -95,7 +139,9 @@ define([
                 id='password'
                 placeholder='&#9679;&#9679;&#9679;'
                 value={ this.state.password }
+                minlength="8"
                 onChange={ this._handleInputChange.bind(this, "password") }
+                onBlur={ this._validate_form.bind(this) }
                 required />
               </div>
 
@@ -108,6 +154,7 @@ define([
                 placeholder='Confirm password'
                 value={ this.state.passwordConfirmation }
                 onChange={ this._handleInputChange.bind(this, "passwordConfirmation") }
+                onBlur={ this._validate_form.bind(this) }
                 required />
               </div>
             </div>
