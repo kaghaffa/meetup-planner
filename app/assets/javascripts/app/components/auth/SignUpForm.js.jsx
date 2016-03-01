@@ -28,6 +28,8 @@ define([
     },
 
     _onSignUpFormSubmit: function(e) {
+      e.preventDefault();
+
       this._validate_form();
       if (this.state.errors.length > 0) return;
 
@@ -39,13 +41,14 @@ define([
         nickname: this.state.nickname
       };
 
-      this._validate_form();
-      if (this.state.errors.length == 0) {
-        UserActions.signUp(signUpData);
-      }
+      this._validate_form(function() {
+        if (this.state.errors.length == 0) {
+          UserActions.signUp(signUpData);
+        }
+      });
     },
 
-    _validate_form: function() {
+    _validate_form: function(callback) {
       var errors = [];
 
       if (this.state.password.length > 0) {
@@ -64,7 +67,11 @@ define([
         }
       }
 
-      this.setState({errors: errors})
+      if (typeof(callback) === 'function') {
+        this.setState({errors: errors}, callback);
+      } else {
+        this.setState({errors: errors});
+      }
     },
 
     render: function() {
@@ -137,11 +144,11 @@ define([
                 className="form-control"
                 type='password'
                 id='password'
-                placeholder='&#9679;&#9679;&#9679;'
+                placeholder='At least 8 characters with at least 1 uppercase or number'
                 value={ this.state.password }
                 minlength="8"
                 onChange={ this._handleInputChange.bind(this, "password") }
-                onBlur={ this._validate_form.bind(this) }
+                onBlur={ this._validate_form }
                 required />
               </div>
 
@@ -154,7 +161,7 @@ define([
                 placeholder='Confirm password'
                 value={ this.state.passwordConfirmation }
                 onChange={ this._handleInputChange.bind(this, "passwordConfirmation") }
-                onBlur={ this._validate_form.bind(this) }
+                onBlur={ this._validate_form }
                 required />
               </div>
             </div>
