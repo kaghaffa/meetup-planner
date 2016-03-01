@@ -11,7 +11,6 @@ define([
     },
 
     render: function() {
-      console.log(this.props.event)
       return (
         <div className="event-list-item well">
 
@@ -21,7 +20,11 @@ define([
             </div>
             <div className="col-md-4">
               <div className="dates">
-                <span>{ moment(this.props.event.starts).format("MM-DD-YYYY") }</span> - <span>{ moment(this.props.event.ends).format("MM-DD-YYYY") }</span>
+                <span>
+                  { moment(this.props.event.starts).locale('en').local().format('MM-DD-YYYY h:mm a') }
+                </span> - <span>
+                  { moment(this.props.event.ends).locale('en').local().format('MM-DD-YYYY h:mm a') }
+                </span>
               </div>
             </div>
           </div>

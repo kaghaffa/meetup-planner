@@ -14,6 +14,7 @@ paths:
   'bootstrap'         : 'bootstrap/bootstrap'
   'datepicker'        : 'datepicker/datepicker.min'
   'pikaday'           : 'pikaday/pikaday'
+  'timepicker'        : 'bootstrap-timepicker/js/bootstrap-timepicker'
 shim:
   'react-router-shim':
     exports: 'React'
@@ -25,4 +26,6 @@ shim:
   'object-assign':
     exports: 'ObjectAssign'
   'bootstrap':
+    deps: ['jquery']
+  'timepicker':
     deps: ['jquery']

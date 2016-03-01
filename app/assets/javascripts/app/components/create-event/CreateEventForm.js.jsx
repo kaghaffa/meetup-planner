@@ -8,9 +8,10 @@ define([
   'moment',
   'async!https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places',
   'app/mixins/googleMapsAutocompleteMixin',
-  'bootstrap'
+  'bootstrap',
+  'timepicker'
 ], function(React, ReactRouter, _, EventActions, EventStore, Datepicker, moment,
-    GoogleMaps, GoogleMapsAutocompleteMixin) {
+    GoogleMaps, GoogleMapsAutocompleteMixin, Timepicker) {
   'use strict';
 
   return React.createClass({
@@ -68,8 +69,8 @@ define([
         location: this.state.location,
         longitude: this.state.longitude,
         latitude: this.state.latitude,
-        starts: this.state.startDate,
-        ends: this.state.endDate,
+        starts: moment(this.state.startDate + " " + this.state.startTime).toString(),
+        ends: moment(this.state.startDate + " " + this.state.startTime).toString(),
         event_type: this.state.eventType,
         host: this.state.hostName,
         description: this.state.description,
@@ -81,7 +82,6 @@ define([
     },
 
     _handleDayClick: function(field, day) {
-      console.log(arguments)
       var nextState = _.cloneDeep(this.state);
       nextState[field] = day;
       this.setState(nextState);
@@ -160,8 +160,9 @@ define([
               </div>
             </div>
 
+
             <div className="row">
-              <div className="col-md-6 form-group">
+              <div className="col-md-3 form-group">
                 <label htmlFor="start-date">Starts</label>
                 <Datepicker
                   inputFieldId="start-date"
@@ -170,7 +171,24 @@ define([
                   minDate={ moment().format("MM-DD-YYYY") }
                   value={ this.state.startDate } />
               </div>
-              <div className="col-md-6 form-group">
+
+              <div className="col-md-3 form-group">
+                <div className="input-group bootstrap-timepicker timepicker">
+                  <input
+                    onBlur={ this._handleInputChange.bind(this, "startTime") }
+                    id="timepicker"
+                    ref="timepicker"
+                    className="form-control"
+                    data-provide="timepicker"
+                    data-template="modal"
+                    data-minute-step="5"
+                    data-modal-backdrop="true"
+                    defaultTime={ this.state.startTime }
+                    type="text"/>
+                </div>
+              </div>
+
+              <div className="col-md-3 form-group">
                 <label htmlFor="end-date">Ends</label>
                 <Datepicker
                   inputFieldId="end-date"
@@ -178,6 +196,22 @@ define([
                   onChangeHandler={ this._handleInputChange.bind(this, "endDate") }
                   minDate={ moment().format("MM-DD-YYYY") }
                   value={ this.state.endDate } />
+              </div>
+
+              <div className="col-md-3 form-group">
+                <div className="input-group bootstrap-timepicker timepicker">
+                  <input
+                    onBlur={ this._handleInputChange.bind(this, "endTime") }
+                    id="timepicker"
+                    ref="timepicker"
+                    className="form-control"
+                    data-provide="timepicker"
+                    data-template="modal"
+                    data-minute-step="5"
+                    data-modal-backdrop="true"
+                    defaultTime={ this.state.endTime }
+                    type="text"/>
+                </div>
               </div>
             </div>
 
