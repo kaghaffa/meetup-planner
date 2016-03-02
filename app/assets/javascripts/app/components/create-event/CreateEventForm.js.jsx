@@ -70,7 +70,7 @@ define([
         longitude: this.state.longitude,
         latitude: this.state.latitude,
         starts: moment(this.state.startDate + " " + this.state.startTime).toString(),
-        ends: moment(this.state.startDate + " " + this.state.startTime).toString(),
+        ends: moment(this.state.endDate + " " + this.state.endTime).toString(),
         event_type: this.state.eventType,
         host: this.state.hostName,
         description: this.state.description,
@@ -89,7 +89,7 @@ define([
 
     render: function() {
       return (
-        <div className="col-md-8 col-md-offset-2 well">
+        <div className="col-md-10 col-md-offset-1 well">
           <form onSubmit={ this._onSubmitForm }>
             <h4>Event details</h4>
             <div className="row">
@@ -160,46 +160,62 @@ define([
               </div>
             </div>
 
-
             <div className="row">
-              <div className="col-md-3 form-group">
+              <div className="col-md-3 col-sm-6 form-group">
                 <label htmlFor="start-date">Starts</label>
-                <Datepicker
-                  inputFieldId="start-date"
-                  onDateSelectHandler={ this._handleDayClick.bind(this, "startDate") }
-                  onChangeHandler={ this._handleInputChange.bind(this, "startDate") }
-                  minDate={ moment().format("MM-DD-YYYY") }
-                  value={ this.state.startDate } />
+                <div className="input-group">
+                  <span className="input-group-addon">
+                    <i className="fa fa-calendar"></i>
+                  </span>
+                  <Datepicker
+                    inputFieldId="start-date"
+                    onDateSelectHandler={ this._handleDayClick.bind(this, "startDate") }
+                    onChangeHandler={ this._handleInputChange.bind(this, "startDate") }
+                    minDate={ moment().format("MM-DD-YYYY") }
+                    value={ this.state.startDate } />
+                </div>
               </div>
 
-              <div className="col-md-3 form-group">
+              <div className="col-md-3 col-sm-6 form-group">
+                <label htmlFor="start-time" style={{color: 'transparent'}}>-</label>
                 <div className="input-group bootstrap-timepicker timepicker">
+                  <span className="input-group-addon">
+                    <i className="fa fa-clock-o"></i>
+                  </span>
                   <input
                     onBlur={ this._handleInputChange.bind(this, "startTime") }
-                    id="timepicker"
+                    id="start-time"
                     ref="timepicker"
                     className="form-control"
                     data-provide="timepicker"
-                    data-template="modal"
+                    data-template="false"
                     data-minute-step="5"
-                    data-modal-backdrop="true"
                     defaultTime={ this.state.startTime }
                     type="text"/>
                 </div>
               </div>
 
-              <div className="col-md-3 form-group">
+              <div className="col-md-3 col-sm-6 form-group">
                 <label htmlFor="end-date">Ends</label>
-                <Datepicker
-                  inputFieldId="end-date"
-                  onDateSelectHandler={ this._handleDayClick.bind(this, "endDate") }
-                  onChangeHandler={ this._handleInputChange.bind(this, "endDate") }
-                  minDate={ moment().format("MM-DD-YYYY") }
-                  value={ this.state.endDate } />
+                <div className="input-group">
+                  <span className="input-group-addon">
+                    <i className="fa fa-calendar"></i>
+                  </span>
+                  <Datepicker
+                    inputFieldId="end-date"
+                    onDateSelectHandler={ this._handleDayClick.bind(this, "endDate") }
+                    onChangeHandler={ this._handleInputChange.bind(this, "endDate") }
+                    minDate={ moment().format("MM-DD-YYYY") }
+                    value={ this.state.endDate } />
+                </div>
               </div>
 
-              <div className="col-md-3 form-group">
+              <div className="col-md-3 col-sm-6 form-group">
+                <label htmlFor="end-time" style={{color: 'transparent'}}>-</label>
                 <div className="input-group bootstrap-timepicker timepicker">
+                  <span className="input-group-addon">
+                    <i className="fa fa-clock-o"></i>
+                  </span>
                   <input
                     onBlur={ this._handleInputChange.bind(this, "endTime") }
                     id="timepicker"
