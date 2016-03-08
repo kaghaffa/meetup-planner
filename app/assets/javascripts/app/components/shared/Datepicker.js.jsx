@@ -12,7 +12,8 @@ define([
       onChangeHandler: React.PropTypes.func,
       onDateSelectHandler: React.PropTypes.func.isRequired,
       value: React.PropTypes.string,
-      placeholder: React.PropTypes.string
+      placeholder: React.PropTypes.string,
+      className: React.PropTypes.string
     },
 
     componentDidMount: function() {
@@ -35,7 +36,7 @@ define([
     render: function() {
       return (
         <input type="text"
-               className="form-control"
+               className={ this.props.className || 'form-control' }
                onBlur={this.props.onBlurHandler}
                onChange={this.props.onChangeHandler}
                value={this.props.value}

@@ -8,17 +8,27 @@ define([
 
     getInitialState: function() {
       return {
-        email: '',
+        email: null,
         password: '',
         passwordConfirmation: '',
-        fullName: '',
-        nickname: '',
-        errors: []
+        fullName: null,
+        nickname: null,
+        errors: [],
+        jobTitle: null,
+        employer: null
       };
     },
 
     componentDidMount: function() {
       this.refs.fullName.getDOMNode().focus();
+
+      // Remove bubble validation
+      var forms = document.getElementsByTagName('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('invalid', function(e) {
+          e.preventDefault();
+        }, true);
+      }
     },
 
     _handleInputChange: function(field, e) {
@@ -38,7 +48,9 @@ define([
         password: this.state.password,
         password_confirmation: this.state.passwordConfirmation,
         full_name: this.state.fullName,
-        nickname: this.state.nickname
+        nickname: this.state.nickname,
+        job_title: this.state.jobTitle,
+        employer: this.state.employer
       };
 
       this._validate_form(function() {
@@ -74,6 +86,13 @@ define([
       }
     },
 
+    _handleInputBlur: function(field, e) {
+      if (this.state[field].length > 0) return;
+      var nextState = _.cloneDeep(this.state);
+      nextState[field] = "";
+      this.setState(nextState);
+    },
+
     render: function() {
       var errorAlert;
       if (!_.isEmpty(this.state.errors)) {
@@ -89,27 +108,28 @@ define([
       }
 
       return (
-        <form className="" onSubmit={ this._onSignUpFormSubmit }>
+        <form ref="sign-up-form" onSubmit={ this._onSignUpFormSubmit }>
           <div className="subtitle">
             <h4>Create an account</h4>
           </div>
           { errorAlert }
           <div className="row">
             <div className="col-md-6 col-sm-6 form-group">
-              <label htmlFor="fullName">Full name *</label>
+              <label htmlFor="full-name">Full name *</label>
               <input
-                className="form-control"
+                className={ this.state.fullName === "" ? "form-control invalid" : 'form-control' }
                 type='text'
-                id='fullName'
+                id='full-name'
                 ref="fullName"
                 placeholder='Joseph Smith'
                 autoComplete="name"
+                onBlur={ this._handleInputBlur.bind(this, "fullName") }
                 value={ this.state.fullName }
                 onChange={ this._handleInputChange.bind(this, "fullName") }
                 required />
               </div>
             <div className="col-md-6 col-sm-6 form-group">
-              <label htmlFor="nickname">What should we call you?</label>
+              <label htmlFor="nickname">What should we call you? (optional)</label>
               <input
                 className="form-control"
                 type='text'
@@ -126,11 +146,12 @@ define([
             <div className="col-md-6 form-group">
               <label htmlFor="email">Email *</label>
               <input
-                className="form-control"
+                className={ this.state.email === "" ? "form-control invalid" : 'form-control' }
                 type='email'
                 id='email'
                 placeholder='joe@smith.com'
                 autoComplete="email"
+                onBlur={ this._handleInputBlur.bind(this, "email") }
                 value={ this.state.email }
                 onChange={ this._handleInputChange.bind(this, "email") }
                 required />
@@ -153,22 +174,48 @@ define([
               </div>
 
             <div className="col-md-6 col-sm-6 form-group">
-              <label htmlFor="passwordConfirmation">Password Confirmation *</label>
+              <label htmlFor="password-confirmation">Password Confirmation *</label>
               <input
                 className="form-control"
                 type='password'
-                id='passwordConfirmation'
+                id='password-confirmation'
                 placeholder='Confirm password'
                 value={ this.state.passwordConfirmation }
                 onChange={ this._handleInputChange.bind(this, "passwordConfirmation") }
                 onBlur={ this._validate_form }
                 required />
-              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-6 col-sm-6 form-group">
+              <label htmlFor="employer">Employer (optional)</label>
+              <input
+                className="form-control"
+                type='text'
+                id='employer'
+                placeholder='Company name'
+                value={ this.state.employer }
+                onChange={ this._handleInputChange.bind(this, "employer") } />
             </div>
 
-            <button type="submit" className="btn btn-success pull-right">
-              Sign Up
-            </button>
+            <div className="col-md-6 col-sm-6 form-group">
+              <label htmlFor="job-title">Job Title (optional)</label>
+              <input
+                className="form-control"
+                type='text'
+                id='job-title'
+                placeholder='Engineer, accountant, etc'
+                value={ this.state.jobTitle }
+                onChange={ this._handleInputChange.bind(this, "jobTitle") } />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-success pull-right">
+            Sign Up
+          </button>
         </form>
       );
     }

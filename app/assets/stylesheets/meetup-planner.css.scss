@@ -24,13 +24,22 @@ body {
 form {
   label {
     padding-left: 10px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 100;
+
+    &.required {
+      font-weight: bold;
+    }
   }
 
   .form-control {
     box-shadow: none;
     border-radius: 2px;
     border-color: #ECECEC;
+
+    &.invalid {
+      border-color: red;
+    }
 
     &:focus {
       box-shadow: none;

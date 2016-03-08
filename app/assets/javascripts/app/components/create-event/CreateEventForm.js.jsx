@@ -20,23 +20,32 @@ define([
 
     getInitialState: function() {
       return {
-        name: "",
-        location: "",
-        latitude: "",
-        longitude: "",
+        name: null,
+        location: null,
+        latitude: null,
+        longitude: null,
         startDate: moment().format("YYYY-MM-DD"),
-        startTime: "",
+        startTime: null,
         endDate: moment().format("YYYY-MM-DD"),
-        endTime: "",
-        eventType: "",
-        hostName: "",
-        guestlist: ""
+        endTime: null,
+        eventType: null,
+        hostName: null,
+        description: '',
+        guestlist: null
       };
     },
 
     componentDidMount: function() {
       this._setUpGoogleMapsAutocomplete();
       this.refs.name.getDOMNode().focus();
+
+      // Remove bubble validation
+      var forms = document.getElementsByTagName('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('invalid', function(e) {
+          e.preventDefault();
+        }, true);
+      }
     },
 
     _setUpGoogleMapsAutocomplete: function() {
@@ -96,12 +105,13 @@ define([
               <div className="col-md-6 form-group">
                 <label htmlFor="name">Event Name *</label>
                 <input
-                  className="form-control"
+                  className={ this.state.name === "" ? "form-control invalid" : 'form-control' }
                   type='text'
                   id='name'
                   ref='name'
                   placeholder='Give it a short, unique name'
                   value={ this.state.name }
+                  onBlur={ this._handleInputChange.bind(this, "name") }
                   onChange={ this._handleInputChange.bind(this, "name") }
                   required />
               </div>
@@ -109,11 +119,12 @@ define([
               <div className="col-md-6 form-group">
                 <label htmlFor="hostName">Host Name *</label>
                 <input
-                  className="form-control"
+                  className={ this.state.hostName === "" ? "form-control invalid" : 'form-control' }
                   type='text'
                   id='hostName'
                   placeholder='Individual or organization'
                   value={ this.state.hostName }
+                  onBlur={ this._handleInputChange.bind(this, "hostName") }
                   onChange={ this._handleInputChange.bind(this, "hostName") }
                   required />
               </div>
@@ -121,22 +132,25 @@ define([
 
             <div className="row">
               <div className="col-md-6 col-sm-6 form-group">
-                <label htmlFor="location">Location</label>
+                <label htmlFor="location">Location *</label>
                 <input
-                  className="form-control"
+                  className={ this.state.location === "" ? "form-control invalid" : 'form-control' }
                   type='text'
                   id='location'
                   ref="location"
                   placeholder='San Francisco, CA'
                   value={ this.state.location }
-                  onChange={ this._handleInputChange.bind(this, "location") } />
+                  onBlur={ this._handleInputChange.bind(this, "location") }
+                  onChange={ this._handleInputChange.bind(this, "location") }
+                  required />
               </div>
 
               <div className="col-md-6 col-sm-6 form-group">
                 <label htmlFor="eventType">Event Type *</label>
                 <select
                   onChange={ this._handleInputChange.bind(this, 'eventType') }
-                  value={ this.state.eventType }>
+                  value={ this.state.eventType }
+                  required >
                   <option value="attraction">Attraction</option>
                   <option value="class">Class</option>
                   <option value="concert">Concert</option>
@@ -162,17 +176,20 @@ define([
 
             <div className="row">
               <div className="col-md-3 col-sm-6 form-group">
-                <label htmlFor="start-date">Starts</label>
+                <label htmlFor="start-date">Starts *</label>
                 <div className="input-group">
                   <span className="input-group-addon">
                     <i className="fa fa-calendar"></i>
                   </span>
                   <Datepicker
                     inputFieldId="start-date"
+                    onBlur={ this._handleInputChange.bind(this, "startDate") }
                     onDateSelectHandler={ this._handleDayClick.bind(this, "startDate") }
                     onChangeHandler={ this._handleInputChange.bind(this, "startDate") }
                     minDate={ moment().format("MM-DD-YYYY") }
-                    value={ this.state.startDate } />
+                    value={ this.state.startDate }
+                    className={ this.state.startDate === "" ? "form-control invalid" : 'form-control' }
+                    required />
                 </div>
               </div>
 
@@ -186,27 +203,31 @@ define([
                     onBlur={ this._handleInputChange.bind(this, "startTime") }
                     id="start-time"
                     ref="timepicker"
-                    className="form-control"
+                    className={ this.state.startTime === "" ? "form-control invalid" : 'form-control' }
                     data-provide="timepicker"
                     data-template="false"
                     data-minute-step="5"
                     defaultTime={ this.state.startTime }
-                    type="text"/>
+                    type="text"
+                    required />
                 </div>
               </div>
 
               <div className="col-md-3 col-sm-6 form-group">
-                <label htmlFor="end-date">Ends</label>
+                <label htmlFor="end-date">Ends *</label>
                 <div className="input-group">
                   <span className="input-group-addon">
                     <i className="fa fa-calendar"></i>
                   </span>
                   <Datepicker
                     inputFieldId="end-date"
+                    onBlur={ this._handleInputChange.bind(this, "endDate") }
                     onDateSelectHandler={ this._handleDayClick.bind(this, "endDate") }
                     onChangeHandler={ this._handleInputChange.bind(this, "endDate") }
                     minDate={ moment().format("MM-DD-YYYY") }
-                    value={ this.state.endDate } />
+                    value={ this.state.endDate }
+                    className={ this.state.endDate === "" ? "form-control invalid" : 'form-control' }
+                    required />
                 </div>
               </div>
 
@@ -220,20 +241,21 @@ define([
                     onBlur={ this._handleInputChange.bind(this, "endTime") }
                     id="timepicker"
                     ref="timepicker"
-                    className="form-control"
+                    className={ this.state.endTime === "" ? "form-control invalid" : 'form-control' }
                     data-provide="timepicker"
                     data-template="modal"
                     data-minute-step="5"
                     data-modal-backdrop="true"
                     defaultTime={ this.state.endTime }
-                    type="text"/>
+                    type="text"
+                    required />
                 </div>
               </div>
             </div>
 
             <div className="row">
               <div className="col-md-12 form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">Description (optional)</label>
                 <textarea
                   className="form-control"
                   type='text'
@@ -246,14 +268,16 @@ define([
 
             <div className="row">
               <div className="col-md-12 form-group">
-                <label htmlFor="guestlist">Guestlist</label>
+                <label htmlFor="guestlist">Guestlist *</label>
                 <textarea
-                  className="form-control"
+                className={ this.state.guestlist === "" ? "form-control invalid" : 'form-control' }
                   type='text'
                   id='guestlist'
                   placeholder='List of guest names'
                   value={ this.state.guestlist }
-                  onChange={ this._handleInputChange.bind(this, "guestlist") } />
+                  onBlur={ this._handleInputChange.bind(this, "guestlist") }
+                  onChange={ this._handleInputChange.bind(this, "guestlist") }
+                  required />
               </div>
             </div>
 
