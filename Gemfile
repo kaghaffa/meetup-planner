@@ -23,6 +23,7 @@ group :doc do
 end
 
 gem 'protected_attributes'
+gem 'unicorn'
 
 # API
 gem 'grape', '~> 0.9.0'
