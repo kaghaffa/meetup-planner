@@ -73,6 +73,19 @@ define([
 
     _onSubmitForm: function(e) {
       e.preventDefault();
+
+      var nextState = _.cloneDeep(this.state);
+      for (var field in nextState) {
+        if (nextState[field] === null) {
+          nextState[field] = '';
+        }
+      };
+      this.setState(nextState);
+
+      if (document.getElementsByClassName('invalid').length) {
+        return;
+      }
+
       EventActions.create({
         name: this.state.name,
         location: this.state.location,
@@ -99,7 +112,7 @@ define([
     render: function() {
       return (
         <div className="col-md-10 col-md-offset-1 well">
-          <form onSubmit={ this._onSubmitForm }>
+          <form>
             <h4>Event details</h4>
             <div className="row">
               <div className="col-md-6 form-group">
@@ -281,7 +294,12 @@ define([
               </div>
             </div>
 
-            <button type="submit" className="btn btn-success pull-right">Create</button>
+            <button
+              type="submit"
+              onClick={ this._onSubmitForm }
+              className="btn btn-success pull-right">
+              Create
+            </button>
           </form>
         </div>
       );

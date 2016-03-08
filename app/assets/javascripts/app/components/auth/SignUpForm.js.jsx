@@ -9,8 +9,8 @@ define([
     getInitialState: function() {
       return {
         email: null,
-        password: '',
-        passwordConfirmation: '',
+        password: null,
+        passwordConfirmation: null,
         fullName: null,
         nickname: null,
         errors: [],
@@ -40,8 +40,19 @@ define([
     _onSignUpFormSubmit: function(e) {
       e.preventDefault();
 
+      var nextState = _.cloneDeep(this.state);
+      for (var field in nextState) {
+        if (nextState[field] === null) {
+          nextState[field] = '';
+        }
+      };
+      this.setState(nextState);
+
       this._validate_form();
-      if (this.state.errors.length > 0) return;
+      console.log('hi')
+      if (this.state.errors.length || document.getElementsByClassName('invalid').length) {
+        return;
+      }
 
       var signUpData = {
         email: this.state.email,
@@ -63,7 +74,7 @@ define([
     _validate_form: function(callback) {
       var errors = [];
 
-      if (this.state.password.length > 0) {
+      if (this.state.password) {
         if (this.state.password.length < 8) {
           errors.push("Password must be at least 8 characters");
         }
@@ -72,7 +83,7 @@ define([
           errors.push("Password must have at least one number or uppercase letter");
         }
 
-        if (this.state.passwordConfirmation.length > 0) {
+        if (this.state.passwordConfirmation) {
           if (this.state.password !== this.state.passwordConfirmation) {
             errors.push("Passwords don't match");
           }
@@ -84,13 +95,6 @@ define([
       } else {
         this.setState({errors: errors});
       }
-    },
-
-    _handleInputBlur: function(field, e) {
-      if (this.state[field].length > 0) return;
-      var nextState = _.cloneDeep(this.state);
-      nextState[field] = "";
-      this.setState(nextState);
     },
 
     render: function() {
@@ -108,7 +112,7 @@ define([
       }
 
       return (
-        <form ref="sign-up-form" onSubmit={ this._onSignUpFormSubmit }>
+        <form ref="sign-up-form">
           <div className="subtitle">
             <h4>Create an account</h4>
           </div>
@@ -123,7 +127,7 @@ define([
                 ref="fullName"
                 placeholder='Joseph Smith'
                 autoComplete="name"
-                onBlur={ this._handleInputBlur.bind(this, "fullName") }
+                onBlur={ this._handleInputChange.bind(this, "fullName") }
                 value={ this.state.fullName }
                 onChange={ this._handleInputChange.bind(this, "fullName") }
                 required />
@@ -151,7 +155,7 @@ define([
                 id='email'
                 placeholder='joe@smith.com'
                 autoComplete="email"
-                onBlur={ this._handleInputBlur.bind(this, "email") }
+                onBlur={ this._handleInputChange.bind(this, "email") }
                 value={ this.state.email }
                 onChange={ this._handleInputChange.bind(this, "email") }
                 required />
@@ -162,7 +166,7 @@ define([
             <div className="col-md-6 col-sm-6 form-group">
               <label htmlFor="password">Password *</label>
               <input
-                className="form-control"
+                className={ this.state.password === "" ? "form-control invalid" : 'form-control' }
                 type='password'
                 id='password'
                 placeholder='At least 8 characters with at least 1 uppercase or number'
@@ -176,7 +180,7 @@ define([
             <div className="col-md-6 col-sm-6 form-group">
               <label htmlFor="password-confirmation">Password Confirmation *</label>
               <input
-                className="form-control"
+                className={ this.state.passwordConfirmation === "" ? "form-control invalid" : 'form-control' }
                 type='password'
                 id='password-confirmation'
                 placeholder='Confirm password'
@@ -213,6 +217,7 @@ define([
 
           <button
             type="submit"
+            onClick={ this._onSignUpFormSubmit }
             className="btn btn-success pull-right">
             Sign Up
           </button>
