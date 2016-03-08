@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'devise', '~> 3.5.5'
+gem 'bcrypt', "~> 3.1.1"
 
 group :doc do
 
@@ -22,7 +23,6 @@ group :doc do
 end
 
 gem 'protected_attributes'
-gem 'unicorn'
 
 # API
 gem 'grape', '~> 0.9.0'
