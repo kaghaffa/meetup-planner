@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160302163222) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "events", force: true do |t|
     t.string   "name",        null: false
     t.string   "token",       null: false
@@ -33,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160302163222) do
     t.string   "event_type"
   end
 
-  add_index "events", ["token"], name: "index_events_on_token", unique: true, using: :btree
+  add_index "events", ["token"], name: "index_events_on_token", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -46,15 +43,15 @@ ActiveRecord::Schema.define(version: 20160302163222) do
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "job_title"
     t.string   "employer"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

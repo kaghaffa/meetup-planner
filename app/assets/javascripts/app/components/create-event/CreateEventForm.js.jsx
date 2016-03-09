@@ -31,7 +31,8 @@ define([
         eventType: null,
         hostName: null,
         description: '',
-        guestlist: null
+        guestlist: null,
+        errors: []
       };
     },
 
@@ -65,6 +66,14 @@ define([
       });
     },
 
+    _handleChangeAndValidate: function(field, e) {
+      var nextState = _.cloneDeep(this.state);
+      nextState[field] = e.target.value;
+      this.setState(nextState, function() {
+        this._validateForm();
+      });
+    },
+
     _handleInputChange: function(field, e) {
       var nextState = _.cloneDeep(this.state);
       nextState[field] = e.target.value;
@@ -82,25 +91,50 @@ define([
       };
       this.setState(nextState);
 
-      if (document.getElementsByClassName('invalid').length) {
-        return;
+      this._validateForm(function() {
+        if (this.state.errors.length || document.getElementsByClassName('invalid').length) {
+          return;
+        }
+
+        EventActions.create({
+          name: this.state.name,
+          location: this.state.location,
+          longitude: this.state.longitude,
+          latitude: this.state.latitude,
+          starts: moment(this.state.startDate + " " + this.state.startTime).toString(),
+          ends: moment(this.state.endDate + " " + this.state.endTime).toString(),
+          event_type: this.state.eventType,
+          host: this.state.hostName,
+          description: this.state.description,
+          guest_list: this.state.guestlist
+        });
+
+        EventActions.get();
+        this.transitionTo('/');
+      });
+    },
+
+    _validateForm: function(callback) {
+      var errors = [];
+      console.log("HI")
+      console.log(this.state)
+
+      if (this.state.startDate && this.state.startTime && this.state.endDate && this.state.endTime) {
+
+        var starts = moment(this.state.startDate + " " + this.state.startTime);
+        var ends = moment(this.state.endDate + " " + this.state.endTime);
+
+        console.log('hi')
+        if (starts > ends) {
+          errors.push("Start date/time must come before End date/time")
+        }
       }
 
-      EventActions.create({
-        name: this.state.name,
-        location: this.state.location,
-        longitude: this.state.longitude,
-        latitude: this.state.latitude,
-        starts: moment(this.state.startDate + " " + this.state.startTime).toString(),
-        ends: moment(this.state.endDate + " " + this.state.endTime).toString(),
-        event_type: this.state.eventType,
-        host: this.state.hostName,
-        description: this.state.description,
-        guest_list: this.state.guestlist
-      });
-
-      EventActions.get();
-      this.transitionTo('/');
+      if (typeof(callback) === 'function') {
+        this.setState({errors: errors}, callback);
+      } else {
+        this.setState({errors: errors});
+      }
     },
 
     _handleDayClick: function(field, day) {
@@ -110,10 +144,24 @@ define([
     },
 
     render: function() {
+      var errorAlert;
+      if (!_.isEmpty(this.state.errors)) {
+        var errorList = this.state.errors.map(function(error, index) {
+          return <li key={ index }>{ error }</li>;
+        })
+
+        errorAlert = (
+          <div className="alert alert-danger" role="alert">
+            <ul>{ errorList }</ul>
+          </div>
+        );
+      }
+
       return (
         <div className="col-md-10 col-md-offset-1 well">
           <form>
             <h4>Event details</h4>
+            { errorAlert }
             <div className="row">
               <div className="col-md-6 form-group">
                 <label htmlFor="name">Event Name *</label>
@@ -196,7 +244,7 @@ define([
                   </span>
                   <Datepicker
                     inputFieldId="start-date"
-                    onBlur={ this._handleInputChange.bind(this, "startDate") }
+                    onBlurHandler={ this._validateForm }
                     onDateSelectHandler={ this._handleDayClick.bind(this, "startDate") }
                     onChangeHandler={ this._handleInputChange.bind(this, "startDate") }
                     minDate={ moment().format("MM-DD-YYYY") }
@@ -213,7 +261,7 @@ define([
                     <i className="fa fa-clock-o"></i>
                   </span>
                   <input
-                    onBlur={ this._handleInputChange.bind(this, "startTime") }
+                    onBlur={ this._handleChangeAndValidate.bind(this, "startTime") }
                     id="start-time"
                     ref="timepicker"
                     className={ this.state.startTime === "" ? "form-control invalid" : 'form-control' }
@@ -234,7 +282,7 @@ define([
                   </span>
                   <Datepicker
                     inputFieldId="end-date"
-                    onBlur={ this._handleInputChange.bind(this, "endDate") }
+                    onBlurHandler={ this._validateForm }
                     onDateSelectHandler={ this._handleDayClick.bind(this, "endDate") }
                     onChangeHandler={ this._handleInputChange.bind(this, "endDate") }
                     minDate={ moment().format("MM-DD-YYYY") }
@@ -251,7 +299,7 @@ define([
                     <i className="fa fa-clock-o"></i>
                   </span>
                   <input
-                    onBlur={ this._handleInputChange.bind(this, "endTime") }
+                    onBlur={ this._handleChangeAndValidate.bind(this, "endTime") }
                     id="timepicker"
                     ref="timepicker"
                     className={ this.state.endTime === "" ? "form-control invalid" : 'form-control' }

@@ -48,23 +48,21 @@ define([
       };
       this.setState(nextState);
 
-      this._validate_form();
-      console.log('hi')
-      if (this.state.errors.length || document.getElementsByClassName('invalid').length) {
-        return;
-      }
-
-      var signUpData = {
-        email: this.state.email,
-        password: this.state.password,
-        password_confirmation: this.state.passwordConfirmation,
-        full_name: this.state.fullName,
-        nickname: this.state.nickname,
-        job_title: this.state.jobTitle,
-        employer: this.state.employer
-      };
-
       this._validate_form(function() {
+        if (this.state.errors.length || document.getElementsByClassName('invalid').length) {
+          return;
+        }
+
+        var signUpData = {
+          email: this.state.email,
+          password: this.state.password,
+          password_confirmation: this.state.passwordConfirmation,
+          full_name: this.state.fullName,
+          nickname: this.state.nickname,
+          job_title: this.state.jobTitle,
+          employer: this.state.employer
+        };
+
         if (this.state.errors.length == 0) {
           UserActions.signUp(signUpData);
         }
@@ -90,6 +88,12 @@ define([
         }
       }
 
+      if (this.state.email) {
+        if (!this.state.email.match(/\S+@\S+\.\S+/)) {
+          errors.push("Invalid email");
+        }
+      }
+
       if (typeof(callback) === 'function') {
         this.setState({errors: errors}, callback);
       } else {
@@ -100,8 +104,8 @@ define([
     render: function() {
       var errorAlert;
       if (!_.isEmpty(this.state.errors)) {
-        var errorList = this.state.errors.map(function(error) {
-          return <li>{ error }</li>;
+        var errorList = this.state.errors.map(function(error, index) {
+          return <li key={ index }>{ error }</li>;
         })
 
         errorAlert = (
@@ -155,7 +159,7 @@ define([
                 id='email'
                 placeholder='joe@smith.com'
                 autoComplete="email"
-                onBlur={ this._handleInputChange.bind(this, "email") }
+                onBlur={ this._validate_form }
                 value={ this.state.email }
                 onChange={ this._handleInputChange.bind(this, "email") }
                 required />

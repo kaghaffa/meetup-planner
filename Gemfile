@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 ruby '2.1.5'
 
 gem 'rails', '4.0.13'
-gem 'pg'
+
+group :production do
+  gem 'pg'
+end
 
 gem 'sass-rails', '~> 5.0.3'
 gem 'font-awesome-sass'
@@ -18,7 +21,6 @@ gem 'devise', '~> 3.5.5'
 gem 'bcrypt', "~> 3.1.1"
 
 group :doc do
-
   gem 'sdoc', require: false
 end
 
@@ -37,6 +39,7 @@ gem 'bower-rails', '~> 0.9.2'
 gem 'requirejs-rails'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 3.2.1'
 end
